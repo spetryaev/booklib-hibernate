@@ -3,24 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ru.sfedu.booklibhibernate.util;
+package ru.sfedu.booklibhibernate.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ru.sfedu.booklibhibernate.model.Book;
 
 /**
  *
  * @author sergey
  */
-public class HibernateUtilTest {
+public class BookDAOTest {
     
-    public HibernateUtilTest() {
+    public BookDAOTest() {
     }
     
     @BeforeClass
@@ -40,15 +39,18 @@ public class HibernateUtilTest {
     }
 
     /**
-     * Test of getSessionFactory method, of class HibernateUtil.
+     * Test of getBookById method, of class BookDAO.
      */
     @Test
-    public void testGetSessionFactory() {
-        System.out.println("getSessionFactory");
-        SessionFactory expResult = null;
-        SessionFactory result = HibernateUtil.getSessionFactory();
-        //Session session = result.openSession();
-       
+    public void testGetBookById() {
+        System.out.println("getBookById");
+        int bookId = 1;
+        BookDAO instance = new BookDAO();
+        Book expResult = null;
+        Book result = instance.getBookById(bookId);
+        String s = result.getBookTitle();
+        System.out.println(s);
+        
     }
     
 }

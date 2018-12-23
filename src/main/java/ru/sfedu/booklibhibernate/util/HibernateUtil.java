@@ -6,6 +6,7 @@
 package ru.sfedu.booklibhibernate.util;
 
 import java.io.File;
+import javax.imageio.spi.ServiceRegistry;
 
 import ru.sfedu.booklibhibernate.model.Book;
 import org.apache.log4j.Logger;
@@ -13,6 +14,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 
 /**
  *
@@ -29,18 +32,22 @@ public class HibernateUtil {
              
             if (sessionFactory == null) {
                      String hibernateConfigPath = getConfigProperty("hibernate_config_path");
-                     log.info("\"getSessionFactory\" => Hybernate confuguration loaded");
+                     File cfgFile = new File(hibernateConfigPath);
 
                 try {
                         
-                        Configuration configuration = new Configuration().configure();
-                        configuration.addAnnotatedClass(Book.class);
-                    
-                        StandardServiceRegistryBuilder builder =  new StandardServiceRegistryBuilder()
-                                                                                                                 .applySettings(configuration.getProperties());
-                                                                   
-                        sessionFactory = configuration.buildSessionFactory(builder.build());
-                    
+                        Configuration configuration = new Configuration().configure(cfgFile);
+                         log.info("\"getSessionFactory\" => Hybernate confuguration loaded");
+                         
+                         StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                                                                                                            .applySettings(configuration.getProperties())
+                                                                                                            .build();
+                         MetadataSources metadataSources = new MetadataSources(serviceRegistry);
+                         metadataSources.addAnnotatedClass(Book.class);
+                         
+                         sessionFactory = metadataSources.buildMetadata().buildSessionFactory();
+
+                      
                         return sessionFactory;
                       }
                 

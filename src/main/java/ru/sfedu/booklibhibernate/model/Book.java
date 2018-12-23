@@ -31,18 +31,19 @@ public class Book implements Serializable {
     
     @Id  //primary key
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "bookId", nullable = false)
-    protected Long bookId;
+    @Column(name = "bookid", nullable = false)
+    protected int bookId;
     
-    @Column (name = "bookTitle", nullable = false)
+    @Column (name = "booktitle", nullable = false)
     protected String bookTitle;
 
-    @Column (name = "bookGenre", nullable = false)
+    @Column (name = "bookgenre", nullable = false)
     protected String bookGenre;
     
-    @Column (name = "bookDate", nullable = false)
+    @Column (name = "bookdate", nullable = false)
     protected String bookDate;
             
+   
     
     
     public long getBookId() {

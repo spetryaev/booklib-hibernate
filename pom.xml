@@ -55,43 +55,11 @@
         </dependency>
         
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>5.4.0.Final</version>
-            <scope>runtime</scope>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.2.2</version>
         </dependency>
         
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-proxool</artifactId>
-            <version>5.4.0.Final</version>
-            <scope>runtime</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>5.4.0.Final</version>
-            <scope>runtime</scope>
-        </dependency>
-        
-       <dependency>
-           <groupId>org.hibernate</groupId>
-           <artifactId>hibernate-infinispan</artifactId>
-           <version>5.4.0.Final</version>
-           <scope>runtime</scope>
-       </dependency>
-       
-       <dependency>
-           <groupId>org.hibernate.ogm</groupId>
-           <artifactId>hibernate-ogm-infinispan-embedded</artifactId>
-           <version>5.4.0.Final</version>
-       </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>postgresql-9.4.1209</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
 </project>
