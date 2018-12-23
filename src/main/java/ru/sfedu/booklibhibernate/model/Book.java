@@ -50,7 +50,7 @@ public class Book implements Serializable {
         return bookId;
     }
 
-    public void setBookId(long bookId) {
+    public void setBookId(int  bookId) {
         this.bookId = bookId;
     }
 
