@@ -30,7 +30,6 @@ public class Book implements Serializable {
     }
     
     @Id  //primary key
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "bookid", nullable = false)
     protected int bookId;
     

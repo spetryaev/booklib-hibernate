@@ -5,6 +5,7 @@
  */
 package ru.sfedu.booklibhibernate.dao;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class BookDAOTest {
     /**
      * Test of getBookById method, of class BookDAO.
      */
-    @Test
+    //@Test
     public void testGetBookById() {
         System.out.println("getBookById");
         int bookId = 1;
@@ -51,6 +52,75 @@ public class BookDAOTest {
         String s = result.getBookTitle();
         System.out.println(s);
         
+    }
+
+    /**
+     * Test of addBook method, of class BookDAO.
+     */
+    @Test
+    public void testAddBook() {
+        System.out.println("addBook");
+        Book bookObject = new Book();
+        bookObject.setBookId(156);
+        bookObject.setBookTitle("Harry Potter");
+        bookObject.setBookGenre("Fantasy");
+        bookObject.setBookDate("1997");
+        BookDAO instance = new BookDAO();
+        boolean expResult = true;
+        boolean result = instance.addBook(bookObject);
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of updateBook method, of class BookDAO.
+     */
+    //@Test
+    public void testUpdateBook() {
+        System.out.println("updateBook");
+        Book bookObject = new Book();
+        bookObject.setBookId(2);
+        bookObject.setBookTitle("Wither");
+        bookObject.setBookGenre("TestFantasy");
+        bookObject.setBookDate("1467");
+        BookDAO instance = new BookDAO();
+        boolean expResult = true;
+        boolean result = instance.updateBook(bookObject);
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of deleteBook method, of class BookDAO.
+     */
+   // @Test
+    public void testDeleteBook() {
+        System.out.println("deleteBook");
+        Book bookObject = new Book();
+        bookObject.setBookId(2);
+        bookObject.setBookTitle("Harry Potter");
+        bookObject.setBookGenre("Fantasy");
+        bookObject.setBookDate("1997");
+        BookDAO instance = new BookDAO();
+        boolean expResult = true;
+        boolean result = instance.deleteBook(bookObject);
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of getBookList method, of class BookDAO.
+     */
+    //@Test
+    public void testGetBookList() {
+        System.out.println("getBookList");
+        BookDAO instance = new BookDAO();
+        List<Book> expResult = null;
+        List<Book> result = instance.getBookList();
+        
+        for(int i = 0; i <  result.size(); i++) {
+            System.out.println(result.get(i).getBookId() +" | " + result.get(i).getBookTitle() + " | " + result.get(i).getBookGenre() +" | " + result.get(i).getBookDate());
+        }
     }
     
 }
