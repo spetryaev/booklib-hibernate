@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import ru.sfedu.booklibhibernate.model.Book;
 import ru.sfedu.booklibhibernate.util.HibernateUtil;
@@ -22,21 +23,27 @@ public class BookDAO {
     
     private static final Logger log = Logger.getLogger(BookDAO.class);
     
+    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+   Session session;
     
     public Book getBookById (int bookId) {
-        HibernateUtil hibernateUtil = new HibernateUtil();
-        Session session = hibernateUtil.getSessionFactory().openSession();
-        Book bookObject = session.get(Book.class, bookId);
-        session.close();
-        return bookObject;
-    }
+       try  {
+                     session = sessionFactory.openSession();
+                    Book bookObject = session.get(Book.class, bookId);
+                    session.close();
+                    return bookObject;
+                }
+       catch (HibernateException e){
+                    log.error(e);
+                    return null;
+                }
+        }
     
     public boolean addBook(Book bookObject){
         try {
-                    HibernateUtil hibernateUtil = new HibernateUtil();
-                    Session session = hibernateUtil.getSessionFactory().openSession();
+                    session = sessionFactory.openSession();
                     Transaction transaction = session.beginTransaction();
-                    session.save(bookObject);
+                    session.saveOrUpdate(bookObject);
                     transaction.commit();
                     session.close();
                     return true;
@@ -49,8 +56,7 @@ public class BookDAO {
     
     public boolean updateBook (Book bookObject) {
             try {
-                        HibernateUtil hibernateUtil = new HibernateUtil();
-                        Session session = hibernateUtil.getSessionFactory().openSession();
+                        session = sessionFactory.openSession();
                         Transaction transaction = session.beginTransaction();
                         session.update(bookObject);
                         transaction.commit();
@@ -65,9 +71,9 @@ public class BookDAO {
             
             public boolean deleteBook (Book bookObject) {
             try {
-                        Session session = HibernateUtil.getSessionFactory().openSession();
+                        session = sessionFactory.openSession();
                         Transaction transaction = session.beginTransaction();
-                        session.delete(bookObject);;
+                        session.delete(bookObject);
                         transaction.commit();
                         session.close();
                         return true;
@@ -80,7 +86,7 @@ public class BookDAO {
             
             public List<Book> getBookList() {
                     try{
-                            Session session = HibernateUtil.getSessionFactory().openSession();
+                            session = sessionFactory.openSession();
                             List<Book> bookList = (List<Book>) session.createQuery("From Book").list(); //Book - class, not table!
                             //there was an error: "books is not mapped". Of course! I mapped a class, not a table in postgres!
                             session.close();
