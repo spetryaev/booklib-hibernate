@@ -16,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
+import ru.sfedu.booklibhibernate.model.Customer;
 
 /**
  *
@@ -25,10 +26,10 @@ public class HibernateUtil {
     
         private static final Logger log = Logger.getLogger(HibernateUtil.class);
         
-        private static SessionFactory sessionFactory;
+        private static SessionFactory sessionFactory = createSessionFactory();
         
       
-        public static SessionFactory getSessionFactory()  {
+        public static SessionFactory createSessionFactory()  {
              
             if (sessionFactory == null) {
                      String hibernateConfigPath = getConfigProperty("hibernate_config_path");
@@ -37,18 +38,20 @@ public class HibernateUtil {
                 try {
                         
                         Configuration configuration = new Configuration().configure(cfgFile);
-                         log.info("\"getSessionFactory\" => Hybernate confuguration loaded");
+                         log.info("Hybernate confuguration loaded");
                          
                          StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                                                                                                             .applySettings(configuration.getProperties())
                                                                                                             .build();
+                         log.info("Service Registry builded successfully!");
                          MetadataSources metadataSources = new MetadataSources(serviceRegistry);
                          metadataSources.addAnnotatedClass(Book.class);
+                         metadataSources.addAnnotatedClass(Customer.class);
                          
-                         sessionFactory = metadataSources.buildMetadata().buildSessionFactory();
-
+                         SessionFactory newSessionFactory = metadataSources.buildMetadata().buildSessionFactory();
+                         log.info("Session Factory builded successfully!");
                       
-                        return sessionFactory;
+                        return newSessionFactory;
                       }
                 
                 catch (HibernateException e){
@@ -56,13 +59,14 @@ public class HibernateUtil {
                         return null;
                 }
                 
-            }
-            
+            }   
+          
             return null;
-                
           }
         
-        
+        public static SessionFactory getSessionFactory(){
+                return sessionFactory;
+        }
         
         
             private static String getConfigProperty(String key) {
