@@ -6,13 +6,10 @@
 package ru.sfedu.booklibhibernate.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.scene.chart.PieChart.Data;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -28,31 +25,25 @@ public class Book implements Serializable {
         
     public Book() {
     }
+   
+    protected int bookId;
+    protected String bookTitle;
+    protected String bookAuthor;
+    protected int bookYear;
+   protected Set<Customer> customers = new HashSet<Customer>(0);
+
     
     @Id  //primary key
-    @Column(name = "bookid", nullable = false)
-    protected int bookId;
-    
-    @Column (name = "booktitle", nullable = false)
-    protected String bookTitle;
-
-    @Column (name = "bookgenre", nullable = false)
-    protected String bookGenre;
-    
-    @Column (name = "bookdate", nullable = false)
-    protected String bookDate;
-            
-   
-    
-    
-    public long getBookId() {
+    @Column(name = "id", nullable = false)
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(int  bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
+    @Column (name = "title", nullable = false)
     public String getBookTitle() {
         return bookTitle;
     }
@@ -60,23 +51,36 @@ public class Book implements Serializable {
     public void setBookTitle(String bookTitle) {
         this.bookTitle = bookTitle;
     }
+
+    @Column (name = "author", nullable = false)
+    public String getBookAuthor() {
+        return bookAuthor;
+    }
+
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
+
+     @Column (name = "year", nullable = false)
+    public int getBookYear() {
+        return bookYear;
+    }
+
+    public void setBookYear(int bookYear) {
+        this.bookYear = bookYear;
+    }
     
-    public String getBookGenre() {
-        return bookGenre;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "books")
+    public Set<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setBookGenre(String bookGenre) {
-        this.bookGenre = bookGenre;
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
-
-    public String getBookDate() {
-        return bookDate;
-    }
-
-    public void setBookDate(String bookDate) {
-        this.bookDate = bookDate;
-    }
+            
    
+    
     
     
     
