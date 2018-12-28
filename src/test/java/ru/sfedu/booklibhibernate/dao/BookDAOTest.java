@@ -45,7 +45,7 @@ public class BookDAOTest {
     //@Test
     public void testGetBookById() {
         System.out.println("getBookById");
-        int bookId = 1;
+        int bookId = 2;
         BookDAO instance = new BookDAO();
         Book expResult = null;
         Book result = instance.getBookById(bookId);
@@ -57,14 +57,14 @@ public class BookDAOTest {
     /**
      * Test of addBook method, of class BookDAO.
      */
-    @Test
+  // @Test
     public void testAddBook() {
         System.out.println("addBook");
         Book bookObject = new Book();
-        bookObject.setBookId(156);
+        bookObject.setBookId(47);
         bookObject.setBookTitle("Harry Potter");
-        bookObject.setBookGenre("Fantasy");
-        bookObject.setBookDate("1997");
+        bookObject.setBookAuthor("Test");
+        bookObject.setBookYear(1997);
         BookDAO instance = new BookDAO();
         boolean expResult = true;
         boolean result = instance.addBook(bookObject);
@@ -79,10 +79,10 @@ public class BookDAOTest {
     public void testUpdateBook() {
         System.out.println("updateBook");
         Book bookObject = new Book();
-        bookObject.setBookId(2);
-        bookObject.setBookTitle("Wither");
-        bookObject.setBookGenre("TestFantasy");
-        bookObject.setBookDate("1467");
+        bookObject.setBookId(4);
+        bookObject.setBookTitle("With");
+        bookObject.setBookAuthor("TestTEst");
+        bookObject.setBookYear(1467);
         BookDAO instance = new BookDAO();
         boolean expResult = true;
         boolean result = instance.updateBook(bookObject);
@@ -93,14 +93,14 @@ public class BookDAOTest {
     /**
      * Test of deleteBook method, of class BookDAO.
      */
-   // @Test
+  // @Test
     public void testDeleteBook() {
         System.out.println("deleteBook");
         Book bookObject = new Book();
-        bookObject.setBookId(2);
+        bookObject.setBookId(47);
         bookObject.setBookTitle("Harry Potter");
-        bookObject.setBookGenre("Fantasy");
-        bookObject.setBookDate("1997");
+        bookObject.setBookAuthor("Fantasy");
+        bookObject.setBookYear(1997);
         BookDAO instance = new BookDAO();
         boolean expResult = true;
         boolean result = instance.deleteBook(bookObject);
@@ -111,7 +111,7 @@ public class BookDAOTest {
     /**
      * Test of getBookList method, of class BookDAO.
      */
-    //@Test
+    @Test
     public void testGetBookList() {
         System.out.println("getBookList");
         BookDAO instance = new BookDAO();
@@ -119,7 +119,7 @@ public class BookDAOTest {
         List<Book> result = instance.getBookList();
         
         for(int i = 0; i <  result.size(); i++) {
-            System.out.println(result.get(i).getBookId() +" | " + result.get(i).getBookTitle() + " | " + result.get(i).getBookGenre() +" | " + result.get(i).getBookDate());
+            System.out.println(result.get(i).getBookId() +" | " + result.get(i).getBookTitle() + " | " + result.get(i).getBookAuthor() +" | " + result.get(i).getBookYear());
         }
     }
     
